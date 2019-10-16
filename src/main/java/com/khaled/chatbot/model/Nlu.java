@@ -3,15 +3,11 @@ package com.khaled.chatbot.model;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.List;
 
  import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="nlu")
@@ -27,4 +23,48 @@ public class Nlu {
 	    @ManyToOne(fetch = FetchType.LAZY)
 	    @JoinColumn(name = "intent_id")
 	    private Intent intent;
+
+	    
+	    private double[][] embed; 
+
+		public Long getId() {
+			return id;
+		}
+
+
+		public void setId(Long id) {
+			this.id = id;
+		}
+
+
+		public String getNlutext() {
+			return nlutext;
+		}
+
+
+		public void setNlutext(String nlutext) {
+			this.nlutext = nlutext;
+		}
+
+
+		public Intent getIntent() {
+			return intent;
+		}
+
+
+		public void setIntent(Intent intent) {
+			this.intent = intent;
+		}
+
+
+		public double[][] getEmbed() {
+			return embed;
+		}
+
+
+		public void setEmbed(double[][] embed) {
+			this.embed = embed;
+		}
+	    
+	    
 }
