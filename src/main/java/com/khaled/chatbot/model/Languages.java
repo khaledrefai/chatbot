@@ -6,15 +6,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="saptco_trips")
-public class SaptcoTrips {
+@Table(name="languages")
+public class Languages {
 
-	
-	 @Id
+
+	  @Id
 	    @GeneratedValue
 	    private Long id;
 	  
-	  private String tripDesc;
+	  private String lang_desc;
 
 	public Long getId() {
 		return id;
@@ -24,15 +24,14 @@ public class SaptcoTrips {
 		this.id = id;
 	}
 
-	public String getTripDesc() {
-		return tripDesc;
+	public String getLang_desc() {
+		return lang_desc;
 	}
 
-	public void setTripDesc(String tripDesc) {
-		this.tripDesc = tripDesc;
+	public void setLang_desc(String lang_desc) {
+		this.lang_desc = lang_desc;
 	}
-
- 
+	  
 	  
 	  
 }
