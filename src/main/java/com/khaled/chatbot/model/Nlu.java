@@ -25,7 +25,6 @@ public class Nlu {
 	    private Intent intent;
 
 	    
-	    private double[][] embed; 
 
 		public Long getId() {
 			return id;
@@ -57,14 +56,6 @@ public class Nlu {
 		}
 
 
-		public double[][] getEmbed() {
-			return embed;
-		}
-
-
-		public void setEmbed(double[][] embed) {
-			this.embed = embed;
-		}
 	    
 	    
 }

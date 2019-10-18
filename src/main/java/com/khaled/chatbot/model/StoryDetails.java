@@ -25,6 +25,38 @@ public class StoryDetails {
 	 @ManyToOne(fetch = FetchType.LAZY)
 	    @JoinColumn(name = "action_to_do")
 	    private Actions action;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Stories getStory() {
+		return story;
+	}
+
+	public void setStory(Stories story) {
+		this.story = story;
+	}
+
+	public Intent getIntent() {
+		return intent;
+	}
+
+	public void setIntent(Intent intent) {
+		this.intent = intent;
+	}
+
+	public Actions getAction() {
+		return action;
+	}
+
+	public void setAction(Actions action) {
+		this.action = action;
+	}
 	 
 	 
 	 
