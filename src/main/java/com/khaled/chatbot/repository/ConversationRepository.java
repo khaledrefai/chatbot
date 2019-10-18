@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.khaled.chatbot.model.Conversation;
 
  
-public interface ConversationRepository extends CrudRepository<Conversation, Long>  {
+public interface ConversationRepository extends JpaRepository<Conversation, Long>  {
+
 
 }

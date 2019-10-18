@@ -33,7 +33,7 @@ public class Conversation {
 
 	@ManyToOne(fetch = FetchType.LAZY )
 	    @JoinColumn(name = "last_story_id" , referencedColumnName="id")
-      private Stories story;
+      private StoryDetails story_detail;
 	  
 	  
 		 @ManyToOne(fetch = FetchType.LAZY)
@@ -51,13 +51,15 @@ public class Conversation {
 		}
 
 
-		public Stories getStory() {
-			return story;
+		
+
+		public StoryDetails getStory_detail() {
+			return story_detail;
 		}
 
 
-		public void setStory(Stories story) {
-			this.story = story;
+		public void setStory_detail(StoryDetails story_detail) {
+			this.story_detail = story_detail;
 		}
 
 
