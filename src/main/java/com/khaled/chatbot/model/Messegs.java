@@ -1,5 +1,6 @@
 package com.khaled.chatbot.model;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,29 +13,22 @@ import javax.persistence.Table;
 @Table(name="messeges")
 public class Messegs {
 
-	  @Id
-	  private Long id;
-	  
-	  @ManyToOne(fetch = FetchType.LAZY )
-	    @JoinColumn(name = "language_id" , referencedColumnName="id")
-  private Languages language;
+	@EmbeddedId
+	private MsgId msgId;
+
+
 	  
 	  private String msg;
 
-	public Long getId() {
-		return id;
+	
+
+
+	public MsgId getMsgId() {
+		return msgId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Languages getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(Languages language) {
-		this.language = language;
+	public void setMsgId(MsgId msgId) {
+		this.msgId = msgId;
 	}
 
 	public String getMsg() {

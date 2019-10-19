@@ -16,7 +16,7 @@ public class NlpService {
 	
 
 	public int get_text_lang(String txt) {
-		
+		if(txt != null) {
 		    Path resource = Paths.get("D:\\fasttextmodels\\lid.176.bin");
 		try {
 			FastText fastText = FastText.loadFasttextBinModel(resource.toString()) ;
@@ -29,6 +29,7 @@ public class NlpService {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
 		}
 	return 0;
 	}

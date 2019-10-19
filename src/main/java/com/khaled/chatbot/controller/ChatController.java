@@ -15,10 +15,12 @@ import com.khaled.chatbot.model.City;
 import com.khaled.chatbot.model.Conversation;
 import com.khaled.chatbot.model.ResponseObj;
 import com.khaled.chatbot.model.SaptcoForm;
+import com.khaled.chatbot.model.SaptcoTrips;
 import com.khaled.chatbot.model.StoryDetails;
 import com.khaled.chatbot.repository.CityRepository;
 import com.khaled.chatbot.repository.ConversationRepository;
 import com.khaled.chatbot.repository.StoryDetailsRepository;
+import com.khaled.chatbot.repository.TripRepository;
 import com.khaled.chatbot.repository.saptcoFormRepository;
 import com.khaled.chatbot.service.ChatService;
 import com.khaled.chatbot.service.MasterActions;
@@ -48,6 +50,12 @@ public class ChatController {
 	@Autowired
 	CityRepository city_rep;
 	
+	@Autowired
+	TripRepository trip_rep;
+	
+	@Autowired
+	saptcoFormRepository saptco_rep;
+	
 	@RequestMapping({ "chat" })
 	public ResponseObj chat(HttpServletRequest request, HttpServletResponse response) {
 		ResponseObj responseObj = new ResponseObj();
@@ -68,6 +76,9 @@ public class ChatController {
 			int req_num = NumberUtils.toInt(messege, -1);
 
 			if (req_num == 0) { // request to cancel
+				SaptcoForm sform =  sapt_rep.findByConversation(conv).get(0);
+				sform.setIs_canceled(1);
+				saptco_rep.save(sform);
 				String msg = masteraction.send_thanks_msg(conv);
 				responseObj.setConversation_id(0);
 				responseObj.setMessege(msg);
@@ -108,7 +119,6 @@ public class ChatController {
 				}
 			} else if (storydetails.getId() == 3) { // filling form add dest city
 				if (req_num > 0 && req_num < 5) { // valid city
-					chatservice.create_form(conv, req_num);
 					SaptcoForm sform =  sapt_rep.findByConversation(conv).get(0);
 					City city = city_rep.getOne((long) req_num);
 					sform.setDest_city(city);
@@ -160,7 +170,8 @@ public class ChatController {
 				} else if (storydetails.getId() == 6) { // filling form 
 					if (req_num > 0 && req_num < 11) { // valid 
 						SaptcoForm sform =  sapt_rep.findByConversation(conv).get(0);
-						sform.setMonth(req_num);
+					SaptcoTrips trip = trip_rep.getOne((long) req_num);
+						sform.setTrip(trip);
 						sapt_rep.save(sform);
 						String msg = masteraction.send_enter_fullname(conv);
 						responseObj.setConversation_id(conversation_id);

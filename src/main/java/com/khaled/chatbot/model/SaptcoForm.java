@@ -36,26 +36,32 @@ public class SaptcoForm {
     @JoinColumn(name = "dest_city")
     private City dest_city;
     
-    @Min(value = 1)
-    @Max(value = 12)
+
     private int month;
     
-    @Min(value = 1)  
-    @Max(value = 31)
+   
     private int day_of_moth;
     
-    @Min(value = 2019)
     private int year;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trip_id")
     private SaptcoTrips trip;
     
-    @Length(min = 3, max = 35)
     private String user_full_name ;
     
-    @Length(min = 6, max = 15)
     private String user_phone;
+
+    private int is_canceled; 
+    
+    
+	public int getIs_canceled() {
+		return is_canceled;
+	}
+
+	public void setIs_canceled(int is_canceled) {
+		this.is_canceled = is_canceled;
+	}
 
 	public Long getId() {
 		return id;
