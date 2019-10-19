@@ -99,13 +99,13 @@ public String  send_invalid_phone(Conversation conv) {
 
 public String  send_confirm(Conversation conv) {
 SaptcoForm sform =	saptco_rep.findByConversation(conv).get(0);
-String msg =  msg_rep.getOne(new MsgId(Msgs.RESERVE_INFO,conv.getLanguage())).getMsg()+ "\n";
-msg =msg + msg_rep.getOne(new MsgId(Msgs.START_CITY,conv.getLanguage())).getMsg() +" : "+sform.getStart_city().getCityname()+"\n";
-msg = msg + msg_rep.getOne(new MsgId(Msgs.DEST_CITY,conv.getLanguage())).getMsg() +" : "+sform.getDest_city().getCityname()+"\n";
-msg = msg + msg_rep.getOne(new MsgId(Msgs.DATE,conv.getLanguage())).getMsg()  +" : "+sform.getDay_of_moth()+"/"+sform.getMonth()+"/2019" + "\n";
-msg = msg +  msg_rep.getOne(new MsgId(Msgs.TRIP,conv.getLanguage())).getMsg()  +" : "+sform.getTrip().getTripDesc() + "\n";
-msg = msg + msg_rep.getOne(new MsgId(Msgs.FULLNAME,conv.getLanguage())).getMsg() +" : "+sform.getUser_full_name() + "\n";
-msg = msg + msg_rep.getOne(new MsgId(Msgs.PHONE,conv.getLanguage())).getMsg()   +" : "+sform.getUser_phone() + "\n";
+String msg =  msg_rep.getOne(new MsgId(Msgs.RESERVE_INFO,conv.getLanguage())).getMsg()+ " ";
+msg =msg + msg_rep.getOne(new MsgId(Msgs.START_CITY,conv.getLanguage())).getMsg() +" : "+sform.getStart_city().getCityname()+" ";
+msg = msg + msg_rep.getOne(new MsgId(Msgs.DEST_CITY,conv.getLanguage())).getMsg() +" : "+sform.getDest_city().getCityname()+" ";
+msg = msg + msg_rep.getOne(new MsgId(Msgs.DATE,conv.getLanguage())).getMsg()  +" : "+sform.getDay_of_moth()+"/"+sform.getMonth()+"/2019" + " ";
+msg = msg +  msg_rep.getOne(new MsgId(Msgs.TRIP,conv.getLanguage())).getMsg()  +" : "+sform.getTrip().getTripDesc() + " ";
+msg = msg + msg_rep.getOne(new MsgId(Msgs.FULLNAME,conv.getLanguage())).getMsg() +" : "+sform.getUser_full_name() + " ";
+msg = msg + msg_rep.getOne(new MsgId(Msgs.PHONE,conv.getLanguage())).getMsg()   +" : "+sform.getUser_phone() + " ";
 msg = msg + msg_rep.getOne(new MsgId(Msgs.PLEASE_CONFRIM,conv.getLanguage())).getMsg()  ;
 	 return msg;
 	}
