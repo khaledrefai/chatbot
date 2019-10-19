@@ -160,12 +160,12 @@ public class ChatController {
 				} else if (storydetails.getId() == 6) { // filling form 
 					if (req_num > 0 && req_num < 11) { // valid 
 						SaptcoForm sform =  sapt_rep.findByConversation(conv).get(0);
-						sform.setDay_of_moth(req_num);
+						sform.setMonth(req_num);
 						sapt_rep.save(sform);
-						String msg = masteraction.send_choose_trip(conv);
+						String msg = masteraction.send_enter_fullname(conv);
 						responseObj.setConversation_id(conversation_id);
 						responseObj.setMessege(msg);
-						StoryDetails story_detail2 = story_details_rep.getOne((long) 6);
+						StoryDetails story_detail2 = story_details_rep.getOne((long) 7);
 						conv.setStory_detail(story_detail2); // move to next
 						conv_rep.save(conv);
 					} else {
@@ -174,6 +174,50 @@ public class ChatController {
 						responseObj.setMessege(msg);
 					}
 				}
+				 else if (storydetails.getId() == 7) { // filling form 
+						if (messege.length() > 3) { // valid 
+							SaptcoForm sform =  sapt_rep.findByConversation(conv).get(0);
+							sform.setUser_full_name(messege);
+							sapt_rep.save(sform);
+							String msg = masteraction.send_enter_phone(conv);
+							responseObj.setConversation_id(conversation_id);
+							responseObj.setMessege(msg);
+							StoryDetails story_detail2 = story_details_rep.getOne((long) 8);
+							conv.setStory_detail(story_detail2); // move to next
+							conv_rep.save(conv);
+						} else {
+							String msg = masteraction.send_invalid_name(conv);
+							responseObj.setConversation_id(conversation_id);
+							responseObj.setMessege(msg);
+						}
+					}
+				 else if (storydetails.getId() == 8) { // filling form 
+						if (messege.length() > 5) { // valid 
+							SaptcoForm sform =  sapt_rep.findByConversation(conv).get(0);
+							sform.setUser_phone(messege);
+							sapt_rep.save(sform);
+							String msg = masteraction.send_confirm(conv);
+							responseObj.setConversation_id(conversation_id);
+							responseObj.setMessege(msg);
+							StoryDetails story_detail2 = story_details_rep.getOne((long) 9);
+							conv.setStory_detail(story_detail2); // move to next
+							conv_rep.save(conv);
+						} else {
+							String msg = masteraction.send_invalid_phone(conv);
+							responseObj.setConversation_id(conversation_id);
+							responseObj.setMessege(msg);
+						}
+					} else if (storydetails.getId() == 9) {  
+						if (req_num ==1 ) { // valid 
+							String msg = masteraction.send_finish_thanks(conv);
+							responseObj.setConversation_id(0);
+							responseObj.setMessege(msg);
+						} else {
+							String msg = masteraction.send_invalid_msg(conv);
+							responseObj.setConversation_id(conversation_id);
+							responseObj.setMessege(msg);
+						}
+					}
 
 		}
 

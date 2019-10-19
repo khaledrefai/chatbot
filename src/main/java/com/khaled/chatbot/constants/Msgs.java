@@ -13,8 +13,20 @@ public final class Msgs    {
     public static  final long  CHOOSE_DAY_OF_MONTH = 8;
     public static  final long  CHOOSE_TRIP = 9;
     public static  final long  ENTER_FULLNAME = 10;
-    public static  final long  ENTER_PHONE =11; 
+    public static  final long  ENTER_PHONE =11;
+    
+    public static  final long  INVALID_NAME =12; 
+    public static  final long  INVALID_PHONE =13; 
+    
+    public static  final long  RESERVE_INFO=14;
+    
+    public static  final long  START_CITY=15;
+    public static  final long  DEST_CITY=16;
+    public static  final long  DATE=17;
+    public static  final long  TRIP=18;
+    public static  final long  FULLNAME=19;
+    public static  final long  PHONE=20;
 
-
-
+    public static  final long  PLEASE_CONFRIM=21;
+    public static  final long  FINISH_THANK=22;
 }
