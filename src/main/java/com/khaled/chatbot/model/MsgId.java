@@ -21,6 +21,11 @@ public class MsgId implements Serializable  {
 	
 	
 
+	public MsgId() {
+		super();
+	}
+
+
 	public MsgId(long msgId, Languages language) {
 		super();
 		this.msgId = msgId;

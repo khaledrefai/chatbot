@@ -1,5 +1,8 @@
 package com.khaled.chatbot.service;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -99,13 +102,35 @@ public String  send_invalid_phone(Conversation conv) {
 
 public String  send_confirm(Conversation conv) {
 SaptcoForm sform =	saptco_rep.findByConversation(conv).get(0);
-String msg =  msg_rep.getOne(new MsgId(Msgs.RESERVE_INFO,conv.getLanguage())).getMsg()+ " ";
-msg =msg + msg_rep.getOne(new MsgId(Msgs.START_CITY,conv.getLanguage())).getMsg() +" : "+sform.getStart_city().getCityname()+" ";
-msg = msg + msg_rep.getOne(new MsgId(Msgs.DEST_CITY,conv.getLanguage())).getMsg() +" : "+sform.getDest_city().getCityname()+" ";
-msg = msg + msg_rep.getOne(new MsgId(Msgs.DATE,conv.getLanguage())).getMsg()  +" : "+sform.getDay_of_moth()+"/"+sform.getMonth()+"/2019" + " ";
-msg = msg +  msg_rep.getOne(new MsgId(Msgs.TRIP,conv.getLanguage())).getMsg()  +" : "+sform.getTrip().getTripDesc() + " ";
-msg = msg + msg_rep.getOne(new MsgId(Msgs.FULLNAME,conv.getLanguage())).getMsg() +" : "+sform.getUser_full_name() + " ";
-msg = msg + msg_rep.getOne(new MsgId(Msgs.PHONE,conv.getLanguage())).getMsg()   +" : "+sform.getUser_phone() + " ";
+
+String start_name = ""; 
+String dest_name = "";
+
+String trip_info = "";
+if(conv.getLanguage().getId()==1) {
+	start_name = sform.getStart_city().getCityname_ar(); 
+	dest_name =sform.getDest_city().getCityname_ar();
+	trip_info = sform.getTrip().getTripDesc_ar();
+}else {
+	
+	 start_name = sform.getStart_city().getCityname(); 
+	 dest_name =sform.getDest_city().getCityname();
+	 trip_info = sform.getTrip().getTripDesc();
+	
+}
+
+
+String msg =  msg_rep.getOne(new MsgId(Msgs.RESERVE_INFO,conv.getLanguage())).getMsg()+ " \n ";
+msg =msg +  msg_rep.getOne(new MsgId(Msgs.START_CITY,conv.getLanguage())).getMsg() +" : "+start_name+"  \n ";
+msg = msg +  msg_rep.getOne(new MsgId(Msgs.DEST_CITY,conv.getLanguage())).getMsg() +" : "+ dest_name +" \n  ";
+
+
+
+
+msg = msg + msg_rep.getOne(new MsgId(Msgs.DATE,conv.getLanguage())).getMsg()  +" : "+sform.getDay_of_moth()+"/"+sform.getMonth()+"/"+sform.getYear() + " \n ";
+msg = msg +  msg_rep.getOne(new MsgId(Msgs.TRIP,conv.getLanguage())).getMsg()  +" : "+ trip_info+ " \n ";
+msg = msg + msg_rep.getOne(new MsgId(Msgs.FULLNAME,conv.getLanguage())).getMsg() +" : "+sform.getUser_full_name() + "  \n ";
+msg = msg + msg_rep.getOne(new MsgId(Msgs.PHONE,conv.getLanguage())).getMsg()   +" : "+sform.getUser_phone() + " \n ";
 msg = msg + msg_rep.getOne(new MsgId(Msgs.PLEASE_CONFRIM,conv.getLanguage())).getMsg()  ;
 	 return msg;
 	}

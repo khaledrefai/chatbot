@@ -16,6 +16,18 @@ public class SaptcoTrips {
 	  
 	  private String tripDesc;
 
+	  private String tripDesc_ar;
+	  
+
+
+	public String getTripDesc_ar() {
+		return tripDesc_ar;
+	}
+
+	public void setTripDesc_ar(String tripDesc_ar) {
+		this.tripDesc_ar = tripDesc_ar;
+	}
+
 	public Long getId() {
 		return id;
 	}

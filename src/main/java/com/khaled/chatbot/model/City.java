@@ -14,6 +14,18 @@ public class City {
 	    private Long id;
 	  
 	  private String cityname;
+	  
+	  private String cityname_ar;
+	  
+	  
+
+	public String getCityname_ar() {
+		return cityname_ar;
+	}
+
+	public void setCityname_ar(String cityname_ar) {
+		this.cityname_ar = cityname_ar;
+	}
 
 	public Long getId() {
 		return id;

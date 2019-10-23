@@ -1,5 +1,10 @@
 package com.khaled.chatbot.controller;
 
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -76,9 +81,12 @@ public class ChatController {
 			int req_num = NumberUtils.toInt(messege, -1);
 
 			if (req_num == 0) { // request to cancel
-				SaptcoForm sform =  sapt_rep.findByConversation(conv).get(0);
+				if(sapt_rep.findByConversation(conv).size() > 0) {
+					SaptcoForm sform =  sapt_rep.findByConversation(conv).get(0);
+
 				sform.setIs_canceled(1);
 				saptco_rep.save(sform);
+				}
 				String msg = masteraction.send_thanks_msg(conv);
 				responseObj.setConversation_id(0);
 				responseObj.setMessege(msg);
@@ -99,9 +107,7 @@ public class ChatController {
 					String msg = masteraction.send_comming_soon(conv);
 					responseObj.setConversation_id(conversation_id);
 					responseObj.setMessege(msg);
-					StoryDetails story_detail2 = story_details_rep.getOne((long) 2);
-					conv.setStory_detail(story_detail2); // move to next
-					conv_rep.save(conv);
+					
 				}
 			} else if (storydetails.getId() == 2) { // filling form add start city
 				if (req_num > 0 && req_num < 5) { // valid city
@@ -152,10 +158,37 @@ public class ChatController {
 						responseObj.setMessege(msg);
 					}
 				} else if (storydetails.getId() == 5) { // filling form add day month
-					if (req_num > 0 && req_num < 32) { // valid month
-						SaptcoForm sform =  sapt_rep.findByConversation(conv).get(0);
+					int max_month = 31; 
+					SaptcoForm sform =  sapt_rep.findByConversation(conv).get(0);
+					int choosen_month = sform.getMonth();
+			        List<Integer> months_30 = Arrays.asList(new Integer[] {4,6,9,11});
+					if (months_30.contains(choosen_month) ) max_month=30;
+					if(choosen_month==2) max_month=28;
+					if (req_num > 0 && req_num <= max_month) { // valid month
 						sform.setDay_of_moth(req_num);
-						sapt_rep.save(sform);
+						
+
+Date today = new Date(); 
+Calendar cal = Calendar.getInstance();
+cal.setTime(today); 
+int year = 2019;
+if( sform.getMonth() > cal.get(Calendar.MONTH) ){
+	year = cal.get(Calendar.YEAR); 
+}
+if( sform.getMonth() == cal.get(Calendar.MONTH) ){
+	if(sform.getDay_of_moth() > cal.get(Calendar.DAY_OF_MONTH) ) {
+	year = cal.get(Calendar.YEAR); 
+	}else {
+		year = cal.get(Calendar.YEAR)+1;
+	}
+}
+
+if( sform.getMonth() < cal.get(Calendar.MONTH) ){
+	year = cal.get(Calendar.YEAR)+1; 
+}
+sform.setYear(year);
+sapt_rep.save(sform);
+
 						String msg = masteraction.send_choose_trip(conv);
 						responseObj.setConversation_id(conversation_id);
 						responseObj.setMessege(msg);
@@ -168,7 +201,7 @@ public class ChatController {
 						responseObj.setMessege(msg);
 					}
 				} else if (storydetails.getId() == 6) { // filling form 
-					if (req_num > 0 && req_num < 11) { // valid 
+					if (req_num > 0 && req_num < 9) { // valid 
 						SaptcoForm sform =  sapt_rep.findByConversation(conv).get(0);
 					SaptcoTrips trip = trip_rep.getOne((long) req_num);
 						sform.setTrip(trip);
@@ -186,7 +219,7 @@ public class ChatController {
 					}
 				}
 				 else if (storydetails.getId() == 7) { // filling form 
-						if (messege.length() > 3) { // valid 
+						if (messege.length() > 0) { // valid 
 							SaptcoForm sform =  sapt_rep.findByConversation(conv).get(0);
 							sform.setUser_full_name(messege);
 							sapt_rep.save(sform);
@@ -203,7 +236,7 @@ public class ChatController {
 						}
 					}
 				 else if (storydetails.getId() == 8) { // filling form 
-						if (messege.length() > 5) { // valid 
+						if (messege.length() > 0) { // valid 
 							SaptcoForm sform =  sapt_rep.findByConversation(conv).get(0);
 							sform.setUser_phone(messege);
 							sapt_rep.save(sform);
