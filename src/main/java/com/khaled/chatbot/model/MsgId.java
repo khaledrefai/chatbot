@@ -76,5 +76,10 @@ public class MsgId implements Serializable  {
         return Objects.hash(getMsgId(), getLanguage().getId());
     }
 	
+    @Override
+    public String toString() {
+    	// TODO Auto-generated method stub
+    	return hashCode()+"";
+    }
 
 }

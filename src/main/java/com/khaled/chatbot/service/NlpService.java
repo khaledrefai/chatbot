@@ -13,17 +13,25 @@ import com.mayabot.mynlp.fasttext.FloatStringPair;
 
 @Service
 public class NlpService {
-	
-	
+	FastText fastText=null;
+	public NlpService() {
+		 ClassLoader classLoader = getClass().getClassLoader();
+		    URL resource = classLoader.getResource("lid.176.bin");
+			try {
+				 fastText = FastText.loadFasttextBinModel(resource.getPath()) ;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	}
 
 	public int get_text_lang(String txt) {
 		if(txt != null) {
-		    ClassLoader classLoader = getClass().getClassLoader();
-		    URL resource = classLoader.getResource("lid.176.bin");
+		   
 		  //  Path resource = Paths.get("D:\\fasttextmodels\\lid.176.bin");
 	 
 		try {
-			FastText fastText = FastText.loadFasttextBinModel(resource.getPath()) ;
 			List<FloatStringPair> predict = fastText.predict(Arrays.asList(txt.split(",")), 1);
  			if(predict.get(0).second.contains("ar")) {
 			return 1;	

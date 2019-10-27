@@ -10,7 +10,6 @@ import com.khaled.chatbot.model.MsgId;
 
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "msgs", path = "msgs")
 public interface MessegesRepository extends JpaRepository<Messegs, MsgId> {
 
 	//List<Messegs> findByIdAndLanguage(long id , Languages lang);
